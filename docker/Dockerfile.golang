@@ -6,8 +6,8 @@ WORKDIR /go/src/isuumo
 
 RUN apt-get update && apt-get install -y wget default-mysql-client
 
-COPY ./go.mod .
-COPY ./go.sum .
+COPY ./isucon10-qualify/webapp/go/go.mod .
+COPY ./isucon10-qualify/webapp/go/go.sum .
 RUN go mod download
-COPY . .
+COPY isucon10-qualify/webapp/go/ .
 RUN make isuumo

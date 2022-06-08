@@ -18,11 +18,6 @@ spec:
             - "/isucon10-qualify/bench/bench"
             - "--target=isuumo.isucon-app:3000"
             - "--exit-status"
-          env:
-            - name: ISUXBENCH_ALL_ADDRESSES
-              value: "isuumo.isucon-app"
-            - name: JIA_SERVICE_URL
-              value: "http://jiaapi-mock.mock:5000"
           resources:
             limits:
               cpu: "4000m"

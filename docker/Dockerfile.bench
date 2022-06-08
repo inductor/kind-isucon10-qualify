@@ -4,8 +4,8 @@ WORKDIR /go/src/bench
 
 RUN apt-get update && apt-get install -y wget default-mysql-client
 
-COPY ./go.mod .
-COPY ./go.sum .
+COPY ./isucon10-qualify/bench/go.mod .
+COPY ./isucon10-qualify/bench/go.sum .
 RUN go mod download
-COPY . .
+COPY isucon10-qualify/bench/ .
 RUN make all
