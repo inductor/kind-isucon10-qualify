@@ -23,8 +23,8 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: ${{ env.go-version }}
-          cache-dependency-path: 'isucon10-qualify/webapp/go/go.sum'
-          cache: true
+          # cache-dependency-path: 'isucon10-qualify/webapp/go/go.sum'
+          # cache: true
 
       - name: Build ISUCON Go app
         run: go build
