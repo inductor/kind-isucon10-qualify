@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: isuumo
+  labels:
+    app: isuumo
+    lang: golang
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: isuumo
+      lang: golang
+  template:
+    metadata:
+      labels:
+        app: isuumo
+        lang: golang
+    spec:
+      containers:
+        - name: isuumo
+          image: ghcr.io/inductor/isuumo-golang:latest # FIXME: 実際に競技を再現したい場合はタグを変更しましょう
+          imagePullPolicy: Always # FIXME: デバッグ用。タグ運用をするなら外しておいた方がよい。
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MYSQL_HOST
+              value: isuumo-mysql
+          resources:
+            limits:
+              cpu: "2000m"
+              memory: 4Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: isuumo
+spec:
+  type: ClusterIP
+  ports:
+    - name: isuumo
+      port: 3000
+  selector:
+    app: isuumo
+    lang: golang

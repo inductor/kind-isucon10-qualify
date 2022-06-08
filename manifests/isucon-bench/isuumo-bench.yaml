@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: isuumo-bench
+  namespace: isucon-bench
+  labels:
+    app: bench
+spec:
+  completions: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: bench
+          image: ghcr.io/inductor/isuumo-bench:latest
+          imagePullPolicy: Always # FIXME: デバッグ用。タグ運用をするなら外しておいた方がよい。
+          command:
+            - "/isucon10-qualify/bench/bench"
+            - "--target=isuumo.isucon-app:3000"
+            - "--exit-status"
+          env:
+            - name: ISUXBENCH_ALL_ADDRESSES
+              value: "isuumo.isucon-app"
+            - name: JIA_SERVICE_URL
+              value: "http://jiaapi-mock.mock:5000"
+          resources:
+            limits:
+              cpu: "4000m"
+              memory: 8Gi

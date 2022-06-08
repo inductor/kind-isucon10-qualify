@@ -1,0 +1,11 @@
+FROM golang:1.14 as build-env
+ENV CGO_ENABLED=1
+RUN apt-get update && apt-get install make git
+
+WORKDIR /isucon10-qualify
+COPY isucon10-qualify ./
+
+WORKDIR /isucon10-qualify/bench
+RUN make build
+WORKDIR /isucon10-qualify/bench
+CMD ["bash"]

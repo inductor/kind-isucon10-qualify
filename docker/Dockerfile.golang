@@ -1,0 +1,22 @@
+
+FROM golang:1.14-buster as build-env
+ENV CGO_ENABLED=0
+
+WORKDIR /isucon/app
+COPY isucon10-qualify/webapp/go/go.mod isucon10-qualify/webapp/go/go.sum ./
+
+RUN go mod download
+
+COPY isucon10-qualify/webapp/go/main.go .
+
+RUN go build -o isuumo
+
+# Main stage
+FROM debian:buster-slim
+LABEL org.opencontainers.image.source=https://github.com/inductor/isuumo-golang
+RUN apt-get update && apt-get install -y default-mysql-client
+
+COPY --from=build-env /isucon/app/isuumo .
+
+EXPOSE 3000
+CMD ["/isucon/app/isuumo"]
