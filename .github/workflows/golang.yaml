@@ -8,7 +8,7 @@ on:
 
 env:
   IMAGE: ghcr.io/inductor/isuumo-golang
-  go-version: 1.16.5
+  go-version: 1.14
 
 jobs:
   build-check:
