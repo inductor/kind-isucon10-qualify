@@ -27,7 +27,7 @@ jobs:
           # cache: true
 
       - name: Build ISUCON Go app
-        run: go build
+        run: go build cmd/bench/bench.go
         working-directory: ./isucon10-qualify/bench
 
   build-image:
